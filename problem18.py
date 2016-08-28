@@ -3,20 +3,20 @@
 import sys
 
 def readFile(filename):
-    A = []
+    a = []
     with open(filename, 'r') as f:
         for line in f:
             cur = line.strip().split(' ')
             cur = [int(x) for x in cur]
-            A.append(cur)
-    return A
+            a.append(cur)
+    return a
 
 def bestPathScore(A):
     l = len(A)
     B = [[A[0][0]]]
 
     for i in range(1, l):
-        B.append([1]*(i+1))
+        B.append([0]*(i+1))
         for j in range(i+1):
             if j == 0:
                 B[i][j] = B[i-1][0] + A[i][0]
