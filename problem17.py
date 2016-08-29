@@ -33,6 +33,8 @@ d[80] = 'eighty'
 d[90] = 'ninety'
 d[100] = 'hundred'
 d[1000] = 'thousand'
+for k in d:
+    d[k] = len(d[k])
 
 def countLetters(n):
     n += 1
@@ -45,40 +47,43 @@ def countLetters(n):
          elif i >= 100 and i < 1000:
              count += o100(i)
          else:
-             count += len('thousand') + len(d[1])
+             count += len('thousand') + d[1]
     return count
 
 def u100(n):
     if n <= 20:
-        return len(d[n])
-    elif n > 20 and n < 30:
-        return len(d[20]) + ones(n % 10)
-    elif n >= 30 and n < 40:
-        return len(d[30]) + ones(n % 10)
-    elif n >= 40 and n < 50:
-        return len(d[40]) + ones(n % 10)
-    elif n >= 50 and n < 60:
-        return len(d[50]) + ones(n % 10)
-    elif n >= 60 and n < 70:
-        return len(d[60]) + ones(n % 10)
-    elif n >= 70 and n < 80:
-        return len(d[70]) + ones(n % 10)
-    elif n >= 80 and n < 90:
-        return len(d[80]) + ones(n % 10)
-    elif n >= 90 and n < 100:
-        return len(d[90]) + ones(n % 10)
+        return d[n]
+
+    res = ones(n%10)
+    if n < 30:
+        res += d[20]
+    elif n < 40:
+        res += d[30]
+    elif n < 50:
+        res += d[40]
+    elif n < 60:
+        res += d[50]
+    elif n < 70:
+        res += d[60]
+    elif n < 80:
+        res += d[70]
+    elif n < 90:
+        res += d[80]
+    elif n < 100:
+        res += d[90]
+    return res
 
 def o100(n):
+    assert (n >= 100 and n < 1000)
     x = n // 100
-    if n % 100 == 0:
-        return len(d[x]) + len(d[100])
-
-    if n >= 100 and n < 1000:
-        return len(d[x]) + len(d[100]) + u100(n % 100) + 3
+    res = d[x] + d[100]
+    if n % 100 != 0:
+        res += u100(n%100) + 3
+    return res
 
 def ones(n):
-    if not n == 0:
-        return len(d[n])
+    if n != 0:
+        return d[n]
     return 0
 
 print(countLetters(1000))
