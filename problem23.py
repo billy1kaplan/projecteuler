@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-
 from math import sqrt
 
 MAX_SIZE = 28124
@@ -23,7 +22,6 @@ def countNon():
             if i - j in A or j * 2 == i:
                 non = False
                 break
-
         if non:
             count += i
     return count
@@ -33,7 +31,8 @@ def isAbundant(n):
     for i in range(2, int(sqrt(n)) + 1):
         if n % i == 0:
             A.append(i)
-            A.append(n // i)
+            if not i == n // i:
+                A.append(n // i)
     return sum(A) > n
 
 print(countNon())
