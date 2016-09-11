@@ -1,0 +1,50 @@
+class contacts:
+    def __init__(self):
+        self.T = Trie()
+        
+    def add(self, s):
+        a = self.T
+        for c in s:
+            na = a.addchar(c)
+            a = na
+            a.words += 1
+           
+    def find(self, s):
+        count = 0
+        
+        a = self.T
+        for c in s:
+            if a.find(c):
+                na = a.find(c) 
+                a = na
+            else:
+                return 0
+        return a.countchild()
+         
+            
+class Trie:
+    def __init__(self):
+        self.a = {} 
+        self.words = 0
+    
+    def addchar(self, c):
+        if c not in self.a:
+            self.a[c] = Trie()
+        return self.a[c]
+    
+    def find(self, c):
+        if c in self.a:
+            return self.a[c]
+    
+    def countchild(self):
+        return self.words
+        
+n = int(input().strip())
+c = contacts()
+for i in range(n):
+    s = input().split(' ')
+    if s[0].strip() == 'add':
+        c.add(s[1].strip())
+        
+    if s[0].strip() == 'find':
+        print(c.find(s[1].strip()))
